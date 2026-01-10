@@ -155,7 +155,7 @@
 			// 
 			// btnZapisz
 			// 
-			btnZapisz.Location = new Point(12, 430); // Przesunięte w dół
+			btnZapisz.Location = new Point(12, 430); 
 			btnZapisz.Name = "btnZapisz";
 			btnZapisz.Size = new Size(438, 40);
 			btnZapisz.TabIndex = 14;
@@ -165,7 +165,7 @@
 			// label8
 			// 
 			label8.AutoSize = true;
-			label8.Location = new Point(12, 335); // Przesunięte w dół
+			label8.Location = new Point(12, 335); 
 			label8.Name = "label8";
 			label8.Size = new Size(73, 15);
 			label8.TabIndex = 15;
@@ -173,7 +173,7 @@
 			// 
 			// txtOpis
 			// 
-			txtOpis.Location = new Point(12, 353); // Przesunięte w dół
+			txtOpis.Location = new Point(12, 353); 
 			txtOpis.Multiline = true;
 			txtOpis.Name = "txtOpis";
 			txtOpis.Size = new Size(438, 60);
@@ -278,4 +278,5 @@
 		private TextBox txtRecznaCzynnosc;
 		private Button btnDodajCzynnosc;
 	}
+
 }
