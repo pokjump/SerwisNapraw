@@ -1,0 +1,354 @@
+[
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "Dell Vostro 3500",
+      "NumerSeryjny": "SN-DELL-11"
+    },
+    "Wykonawca": {
+      "Imie": "Marek Nowak",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Jan Kowalski",
+      "Telefon": "500-111-222",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 150.0,
+    "KosztCzesci": 200.0,
+    "UzyteCzesciOpis": "Dysk SSD 500GB",
+    "OpisUsterki": "Wolno dzia\u0142a, wymiana dysku | Uwagi: Klient prosi o zachowanie zdj\u0119\u0107 z pulpitu",
+    "CzyZakonczona": true,
+    "Data": "2024-01-10T09:00:00",
+    "DataZakonczenia": "2024-01-11T14:00:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "drukarka",
+      "Model": "Brother MFC-L2712DW",
+      "NumerSeryjny": "BRO-998877"
+    },
+    "Wykonawca": {
+      "Imie": "Ewa Wi\u015Bniewska",
+      "Kwalifikacje": [
+        "Drukarka"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Biuro Rachunkowe ALFA",
+      "Telefon": "33-812-34-56",
+      "Nip": "549-000-11-22",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 0,
+    "KosztCzesci": 0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Zacina papier przy dupleksie",
+    "CzyZakonczona": true,
+    "Data": "2024-01-15T10:30:00",
+    "DataZakonczenia": "2026-01-10T18:34:59.5795403+01:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "telefon",
+      "Model": "iPhone 13 Pro",
+      "NumerSeryjny": "IMEI-33445566"
+    },
+    "Wykonawca": {
+      "Imie": "Kamil Stoch",
+      "Kwalifikacje": [
+        "Telefon",
+        "Komputer"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Anna Nowak",
+      "Telefon": "606-707-808",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 0.0,
+    "KosztCzesci": 0.0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Zbita szybka, dotyk dzia\u0142a",
+    "CzyZakonczona": false,
+    "Data": "2024-01-16T12:00:00",
+    "DataZakonczenia": null
+  },
+  {
+    "Urzadzenie": {
+      "$type": "monitor",
+      "Model": "Eizo ColorEdge",
+      "NumerSeryjny": "EIZO-PRO-1"
+    },
+    "Wykonawca": {
+      "Imie": "Piotr Zieli\u0144ski",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor",
+        "Drukarka"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Studio Graficzne PIXEL Sp. z o.o.",
+      "Telefon": "501-502-503",
+      "Nip": "123-456-78-90",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 300.0,
+    "KosztCzesci": 150.0,
+    "UzyteCzesciOpis": "Zasilacz wewn\u0119trzny",
+    "OpisUsterki": "Nie w\u0142\u0105cza si\u0119, dioda nie \u015Bwieci",
+    "CzyZakonczona": true,
+    "Data": "2024-01-05T08:00:00",
+    "DataZakonczenia": "2024-01-07T16:00:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "Lenovo Legion",
+      "NumerSeryjny": "PF-2X1234"
+    },
+    "Wykonawca": {
+      "Imie": "Marek Nowak",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Krzysztof Jarzyna",
+      "Telefon": "777-888-999",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 0.0,
+    "KosztCzesci": 0.0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Grzeje si\u0119 podczas grania, czyszczenie uk\u0142adu ch\u0142odzenia",
+    "CzyZakonczona": false,
+    "Data": "2024-01-16T14:15:00",
+    "DataZakonczenia": null
+  },
+  {
+    "Urzadzenie": {
+      "$type": "drukarka",
+      "Model": "HP LaserJet P2055dn",
+      "NumerSeryjny": "VNB3K0000"
+    },
+    "Wykonawca": {
+      "Imie": "Ewa Wi\u015Bniewska",
+      "Kwalifikacje": [
+        "Drukarka"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Szko\u0142a Podstawowa nr 5",
+      "Telefon": "32-444-55-66",
+      "Nip": "600-100-20-30",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 150.0,
+    "KosztCzesci": 50.0,
+    "UzyteCzesciOpis": "Rolka pobieraj\u0105ca, separator",
+    "OpisUsterki": "Brudzi kartki, konserwacja",
+    "CzyZakonczona": true,
+    "Data": "2023-12-20T10:00:00",
+    "DataZakonczenia": "2023-12-21T11:00:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "telefon",
+      "Model": "Samsung Galaxy S22",
+      "NumerSeryjny": "R5C998877"
+    },
+    "Wykonawca": {
+      "Imie": "Kamil Stoch",
+      "Kwalifikacje": [
+        "Telefon",
+        "Komputer"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Bud-Max Janusz Budowniczy",
+      "Telefon": "600-100-200",
+      "Nip": "999-888-77-66",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 0.0,
+    "KosztCzesci": 0.0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Gniazdo \u0142adowania nie styka",
+    "CzyZakonczona": false,
+    "Data": "2024-01-16T09:00:00",
+    "DataZakonczenia": null
+  },
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "MacBook Air M1",
+      "NumerSeryjny": "C02-APPLE-M1"
+    },
+    "Wykonawca": {
+      "Imie": "Piotr Zieli\u0144ski",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor",
+        "Drukarka"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Kasia Cichopek",
+      "Telefon": "555-444-333",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 0.0,
+    "KosztCzesci": 0.0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Wylana kawa na klawiatur\u0119 | Uwagi: Nie w\u0142\u0105cza\u0107!",
+    "CzyZakonczona": false,
+    "Data": "2024-01-16T15:00:00",
+    "DataZakonczenia": null
+  },
+  {
+    "Urzadzenie": {
+      "$type": "monitor",
+      "Model": "LG 24MP59G",
+      "NumerSeryjny": "LG-24-IPS"
+    },
+    "Wykonawca": {
+      "Imie": "Marek Nowak",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Urz\u0105d Gminy",
+      "Telefon": "33-123-45-67",
+      "Nip": "000-000-00-01",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 50.0,
+    "KosztCzesci": 0.0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Brak obrazu, dioda mruga",
+    "CzyZakonczona": true,
+    "Data": "2024-01-02T08:00:00",
+    "DataZakonczenia": "2024-01-03T10:00:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "PC Custom Build",
+      "NumerSeryjny": "Brak"
+    },
+    "Wykonawca": {
+      "Imie": "Piotr Zieli\u0144ski",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor",
+        "Drukarka"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "Gracz E-Sportowy",
+      "Telefon": "997-998-999",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 200.0,
+    "KosztCzesci": 450.0,
+    "UzyteCzesciOpis": "Zasilacz Corsair 750W",
+    "OpisUsterki": "Komputer si\u0119 wy\u0142\u0105cza pod obci\u0105\u017Ceniem",
+    "CzyZakonczona": true,
+    "Data": "2023-12-28T11:00:00",
+    "DataZakonczenia": "2023-12-30T13:00:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "PC",
+      "NumerSeryjny": "-"
+    },
+    "Wykonawca": {
+      "Imie": "Marek Nowak",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "XDDDDD",
+      "Telefon": "111122223",
+      "Nip": "12345678",
+      "CzyFirma": true
+    },
+    "KosztRobocizny": 200,
+    "KosztCzesci": 150,
+    "UzyteCzesciOpis": "pasta termo - 30pln, dysk crucial 500 - 120",
+    "OpisUsterki": "Formatowanie, Czyszczenie, Wymiana dysku, Instalacja systemu | Uwagi: nic",
+    "CzyZakonczona": true,
+    "Data": "2026-01-07T16:51:17.4993696+01:00",
+    "DataZakonczenia": "2026-01-07T16:51:57.7106854+01:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "komputer",
+      "Model": "a",
+      "NumerSeryjny": "1"
+    },
+    "Wykonawca": {
+      "Imie": "Marek Nowak",
+      "Kwalifikacje": [
+        "Komputer",
+        "Monitor"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "a a",
+      "Telefon": "1",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 0,
+    "KosztCzesci": 0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Formatowanie, Czyszczenie | Uwagi: a",
+    "CzyZakonczona": true,
+    "Data": "2026-01-10T19:11:31.4870701+01:00",
+    "DataZakonczenia": "2026-01-10T19:12:02.2683882+01:00"
+  },
+  {
+    "Urzadzenie": {
+      "$type": "telefon",
+      "Model": "b",
+      "NumerSeryjny": "b"
+    },
+    "Wykonawca": {
+      "Imie": "Kamil Stoch",
+      "Kwalifikacje": [
+        "Telefon",
+        "Komputer"
+      ]
+    },
+    "Wlasciciel": {
+      "ImieNazwisko": "b b",
+      "Telefon": "123",
+      "Nip": "",
+      "CzyFirma": false
+    },
+    "KosztRobocizny": 0,
+    "KosztCzesci": 0,
+    "UzyteCzesciOpis": "Brak",
+    "OpisUsterki": "Wymiana baterii, czyszczenie | Uwagi: asdas",
+    "CzyZakonczona": true,
+    "Data": "2026-01-10T19:11:51.3394054+01:00",
+    "DataZakonczenia": "2026-01-10T19:12:06.5960896+01:00"
+  }
+]
