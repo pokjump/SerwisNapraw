@@ -10,6 +10,15 @@
     <Compile Update="FormHistoria.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormKonfiguracja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormSerwisanci.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormWykresy.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormZakoncz.cs">
       <SubType>Form</SubType>
     </Compile>

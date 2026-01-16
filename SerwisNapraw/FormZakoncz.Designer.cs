@@ -3,6 +3,7 @@
 	partial class FormZakoncz
 	{
 		private System.ComponentModel.IContainer components = null;
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && (components != null)) components.Dispose();
@@ -13,148 +14,201 @@
 
 		private void InitializeComponent()
 		{
-			cmbNaprawy = new ComboBox();
-			label1 = new Label();
-			label2 = new Label();
-			numRobocizna = new NumericUpDown();
-			btnZatwierdz = new Button();
-			lblSzczegoly = new Label();
-			label3 = new Label();
-			numCzesci = new NumericUpDown();
-			label4 = new Label();
-			txtUzyteCzesci = new TextBox(); // <--- NOWE POLE
-			((System.ComponentModel.ISupportInitialize)numRobocizna).BeginInit();
-			((System.ComponentModel.ISupportInitialize)numCzesci).BeginInit();
-			SuspendLayout();
+			this.cmbNaprawy = new System.Windows.Forms.ComboBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.numRobocizna = new System.Windows.Forms.NumericUpDown();
+			this.btnZatwierdz = new System.Windows.Forms.Button();
+			this.lblSzczegoly = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.numCzesci = new System.Windows.Forms.NumericUpDown();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtUzyteCzesci = new System.Windows.Forms.TextBox();
+			this.labelDodatkowe = new System.Windows.Forms.Label();
+			this.clbDodatkowe = new System.Windows.Forms.CheckedListBox();
+			this.txtDodatkoweReczne = new System.Windows.Forms.TextBox();
+			this.btnDodajReczne = new System.Windows.Forms.Button();
+			((System.ComponentModel.ISupportInitialize)(this.numRobocizna)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numCzesci)).BeginInit();
+			this.SuspendLayout();
 			// 
 			// cmbNaprawy
 			// 
-			cmbNaprawy.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			cmbNaprawy.DropDownStyle = ComboBoxStyle.DropDownList;
-			cmbNaprawy.FormattingEnabled = true;
-			cmbNaprawy.Location = new Point(12, 30);
-			cmbNaprawy.Name = "cmbNaprawy";
-			cmbNaprawy.Size = new Size(560, 23);
-			cmbNaprawy.TabIndex = 0;
+			this.cmbNaprawy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbNaprawy.FormattingEnabled = true;
+			this.cmbNaprawy.Location = new System.Drawing.Point(12, 30);
+			this.cmbNaprawy.Name = "cmbNaprawy";
+			this.cmbNaprawy.Size = new System.Drawing.Size(560, 23);
+			this.cmbNaprawy.TabIndex = 0;
 			// 
 			// label1
 			// 
-			label1.AutoSize = true;
-			label1.Location = new Point(12, 9);
-			label1.Name = "label1";
-			label1.Size = new Size(181, 15);
-			label1.TabIndex = 1;
-			label1.Text = "Wybierz naprawę do zakończenia";
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(12, 9);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(181, 15);
+			this.label1.TabIndex = 1;
+			this.label1.Text = "Wybierz naprawę do zakończenia";
 			// 
 			// label2
 			// 
-			label2.AutoSize = true;
-			label2.Location = new Point(12, 70);
-			label2.Name = "label2";
-			label2.Size = new Size(97, 15);
-			label2.TabIndex = 2;
-			label2.Text = "Koszt usługi (zł):";
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(12, 70);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(97, 15);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Koszt usługi (zł):";
 			// 
 			// numRobocizna
 			// 
-			numRobocizna.Location = new Point(12, 88);
-			numRobocizna.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-			numRobocizna.Name = "numRobocizna";
-			numRobocizna.Size = new Size(120, 23);
-			numRobocizna.TabIndex = 1;
-			// 
-			// label3
-			// 
-			label3.AutoSize = true;
-			label3.Location = new Point(150, 70);
-			label3.Name = "label3";
-			label3.Size = new Size(96, 15);
-			label3.TabIndex = 4;
-			label3.Text = "Koszt części (zł):";
-			// 
-			// numCzesci
-			// 
-			numCzesci.Location = new Point(150, 88);
-			numCzesci.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-			numCzesci.Name = "numCzesci";
-			numCzesci.Size = new Size(120, 23);
-			numCzesci.TabIndex = 2;
-			// 
-			// label4
-			// 
-			label4.AutoSize = true;
-			label4.Location = new Point(290, 70);
-			label4.Name = "label4";
-			label4.Size = new Size(106, 15);
-			label4.TabIndex = 7;
-			label4.Text = "Lista użytych części:";
-			// 
-			// txtUzyteCzesci
-			// 
-			txtUzyteCzesci.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			txtUzyteCzesci.Location = new Point(290, 87);
-			txtUzyteCzesci.Name = "txtUzyteCzesci";
-			txtUzyteCzesci.PlaceholderText = "np. Zasilacz, Dysk SSD...";
-			txtUzyteCzesci.Size = new Size(282, 23);
-			txtUzyteCzesci.TabIndex = 3;
-			// 
-			// lblSzczegoly
-			// 
-			lblSzczegoly.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			lblSzczegoly.BorderStyle = BorderStyle.FixedSingle;
-			lblSzczegoly.Location = new Point(12, 130);
-			lblSzczegoly.Name = "lblSzczegoly";
-			lblSzczegoly.Padding = new Padding(5);
-			lblSzczegoly.Size = new Size(560, 160);
-			lblSzczegoly.TabIndex = 6;
+			this.numRobocizna.Location = new System.Drawing.Point(12, 88);
+			this.numRobocizna.Maximum = new decimal(new int[] {
+			100000,
+			0,
+			0,
+			0});
+			this.numRobocizna.Name = "numRobocizna";
+			this.numRobocizna.Size = new System.Drawing.Size(120, 23);
+			this.numRobocizna.TabIndex = 1;
 			// 
 			// btnZatwierdz
 			// 
-			btnZatwierdz.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			btnZatwierdz.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-			btnZatwierdz.Location = new Point(12, 309);
-			btnZatwierdz.Name = "btnZatwierdz";
-			btnZatwierdz.Size = new Size(560, 40);
-			btnZatwierdz.TabIndex = 4;
-			btnZatwierdz.Text = "ZATWIERDŹ I ROZLICZ";
-			btnZatwierdz.UseVisualStyleBackColor = true;
+			this.btnZatwierdz.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.btnZatwierdz.Location = new System.Drawing.Point(12, 388);
+			this.btnZatwierdz.Name = "btnZatwierdz";
+			this.btnZatwierdz.Size = new System.Drawing.Size(833, 50);
+			this.btnZatwierdz.TabIndex = 4;
+			this.btnZatwierdz.Text = "ZATWIERDŹ I ROZLICZ";
+			this.btnZatwierdz.UseVisualStyleBackColor = true;
+			// 
+			// lblSzczegoly
+			// 
+			this.lblSzczegoly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.lblSzczegoly.Location = new System.Drawing.Point(12, 130);
+			this.lblSzczegoly.Name = "lblSzczegoly";
+			this.lblSzczegoly.Padding = new System.Windows.Forms.Padding(5);
+			this.lblSzczegoly.Size = new System.Drawing.Size(560, 243);
+			this.lblSzczegoly.TabIndex = 6;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(150, 70);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(96, 15);
+			this.label3.TabIndex = 4;
+			this.label3.Text = "Koszt części (zł):";
+			// 
+			// numCzesci
+			// 
+			this.numCzesci.Location = new System.Drawing.Point(150, 88);
+			this.numCzesci.Maximum = new decimal(new int[] {
+			100000,
+			0,
+			0,
+			0});
+			this.numCzesci.Name = "numCzesci";
+			this.numCzesci.Size = new System.Drawing.Size(120, 23);
+			this.numCzesci.TabIndex = 2;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(290, 70);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(106, 15);
+			this.label4.TabIndex = 7;
+			this.label4.Text = "Lista użytych części:";
+			// 
+			// txtUzyteCzesci
+			// 
+			this.txtUzyteCzesci.Location = new System.Drawing.Point(290, 87);
+			this.txtUzyteCzesci.Name = "txtUzyteCzesci";
+			this.txtUzyteCzesci.PlaceholderText = "np. Zasilacz, Dysk SSD...";
+			this.txtUzyteCzesci.Size = new System.Drawing.Size(282, 23);
+			this.txtUzyteCzesci.TabIndex = 3;
+			// 
+			// labelDodatkowe
+			// 
+			this.labelDodatkowe.AutoSize = true;
+			this.labelDodatkowe.Location = new System.Drawing.Point(588, 9);
+			this.labelDodatkowe.Name = "labelDodatkowe";
+			this.labelDodatkowe.Size = new System.Drawing.Size(200, 15);
+			this.labelDodatkowe.TabIndex = 8;
+			this.labelDodatkowe.Text = "Wykonane czynności (weryfikacja):";
+			// 
+			// clbDodatkowe
+			// 
+			this.clbDodatkowe.CheckOnClick = true;
+			this.clbDodatkowe.FormattingEnabled = true;
+			this.clbDodatkowe.Location = new System.Drawing.Point(588, 30);
+			this.clbDodatkowe.Name = "clbDodatkowe";
+			this.clbDodatkowe.Size = new System.Drawing.Size(257, 310);
+			this.clbDodatkowe.TabIndex = 9;
+			// 
+			// txtDodatkoweReczne
+			// 
+			this.txtDodatkoweReczne.Location = new System.Drawing.Point(588, 350);
+			this.txtDodatkoweReczne.Name = "txtDodatkoweReczne";
+			this.txtDodatkoweReczne.Size = new System.Drawing.Size(176, 23);
+			this.txtDodatkoweReczne.TabIndex = 10;
+			// 
+			// btnDodajReczne
+			// 
+			this.btnDodajReczne.Location = new System.Drawing.Point(770, 349);
+			this.btnDodajReczne.Name = "btnDodajReczne";
+			this.btnDodajReczne.Size = new System.Drawing.Size(75, 24);
+			this.btnDodajReczne.TabIndex = 11;
+			this.btnDodajReczne.Text = "Dodaj";
+			this.btnDodajReczne.UseVisualStyleBackColor = true;
 			// 
 			// FormZakoncz
 			// 
-			AutoScaleDimensions = new SizeF(7F, 15F);
-			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(584, 361);
-			Controls.Add(txtUzyteCzesci);
-			Controls.Add(label4);
-			Controls.Add(numCzesci);
-			Controls.Add(label3);
-			Controls.Add(lblSzczegoly);
-			Controls.Add(btnZatwierdz);
-			Controls.Add(numRobocizna);
-			Controls.Add(label2);
-			Controls.Add(label1);
-			Controls.Add(cmbNaprawy);
-			FormBorderStyle = FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
-			Name = "FormZakoncz";
-			Text = "Rozliczanie Naprawy";
-			((System.ComponentModel.ISupportInitialize)numRobocizna).EndInit();
-			((System.ComponentModel.ISupportInitialize)numCzesci).EndInit();
-			ResumeLayout(false);
-			PerformLayout();
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(857, 450);
+			this.Controls.Add(this.btnDodajReczne);
+			this.Controls.Add(this.txtDodatkoweReczne);
+			this.Controls.Add(this.clbDodatkowe);
+			this.Controls.Add(this.labelDodatkowe);
+			this.Controls.Add(this.txtUzyteCzesci);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.numCzesci);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.lblSzczegoly);
+			this.Controls.Add(this.btnZatwierdz);
+			this.Controls.Add(this.numRobocizna);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.cmbNaprawy);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.Name = "FormZakoncz";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Rozliczanie naprawy";
+			((System.ComponentModel.ISupportInitialize)(this.numRobocizna)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numCzesci)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
 		}
 
 		#endregion
 
-		private ComboBox cmbNaprawy;
-		private Label label1;
-		private Label label2;
-		private NumericUpDown numRobocizna;
-		private Button btnZatwierdz;
-		private Label lblSzczegoly;
-		private Label label3;
-		private NumericUpDown numCzesci;
-		private Label label4;
-		private TextBox txtUzyteCzesci;
+		private System.Windows.Forms.ComboBox cmbNaprawy;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.NumericUpDown numRobocizna;
+		private System.Windows.Forms.Button btnZatwierdz;
+		private System.Windows.Forms.Label lblSzczegoly;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.NumericUpDown numCzesci;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox txtUzyteCzesci;
+
+		public System.Windows.Forms.Label labelDodatkowe;
+		public System.Windows.Forms.CheckedListBox clbDodatkowe;
+		public System.Windows.Forms.TextBox txtDodatkoweReczne;
+		public System.Windows.Forms.Button btnDodajReczne;
 	}
 }

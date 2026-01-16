@@ -1,105 +1,107 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SerwisNapraw
 {
-    public partial class Form1 : Form
-    {
-        List<Naprawa> naprawy = new List<Naprawa>();
-        List<Naprawa> widoczneNaprawy = new List<Naprawa>();
-        List<Serwisant> serwisanci = new List<Serwisant>();
+	public partial class Form1 : Form
+	{
+		private ZarzadzanieSerwisem serwis = new ZarzadzanieSerwisem();
 
-        public Form1()
-        {
-            InitializeComponent();
+		public Form1()
+		{
+			InitializeComponent();
+			
+			serwis.ZglosKomunikat += PokazKomunikat;
+			serwis.ZglosBlad += PokazBlad;
+			serwis.ZadajPytanie += ZadajPytanie;
 
-            lstNaprawy.DoubleClick += lstNaprawy_DoubleClick;
+			lstNaprawy.DoubleClick += KlikniecieNaListe;
 
-            serwisanci = Serwisant.DajWszystkich();
+			OdswiezListe();
+		}
 
-            try
-            {
-                naprawy = ObslugaDanych.Wczytaj();
-            }
-            catch
-            {
-                // pusta lista jak blad
-            }
+		private void PokazKomunikat(object sender, KomunikatEventArgs e)
+		{
+			MessageBox.Show(e.Tresc, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
 
-            OdswiezListe();
-        }
+		private void PokazBlad(object sender, KomunikatEventArgs e)
+		{
+			MessageBox.Show(e.Tresc, "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+		}
 
-        private void btnNoweZlecenie_Click(object sender, EventArgs e)
-        {
-            FormDodaj okno = new FormDodaj(naprawy, serwisanci);
+		private void ZadajPytanie(object sender, PytanieEventArgs e)
+		{
+			DialogResult dr = MessageBox.Show(e.Pytanie, "Pytanie", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dr == DialogResult.Yes)
+			{
+				e.Odpowiedz = true;
+			}
+			else
+			{
+				e.Odpowiedz = false;
+			}
+		}
 
-            if (okno.ShowDialog() == DialogResult.OK)
-            {
-                naprawy.Add(okno.NowaNaprawa);
-                Zapisz();
-                MessageBox.Show("Dodano zlecenie.");
-            }
-        }
+		private void OdswiezListe()
+		{
+			lstNaprawy.Items.Clear();
+			foreach (var n in serwis.PobierzAktywne())
+			{
+				lstNaprawy.Items.Add(n);
+			}
+		}
 
-        private void btnZakonczZlecenie_Click(object sender, EventArgs e)
-        {
-            if (widoczneNaprawy.Count == 0)
-            {
-                MessageBox.Show("Brak aktywnych napraw.");
-                return;
-            }
+		private void btnNoweZlecenie_Click(object sender, EventArgs e)
+		{
+			FormDodaj okno = new FormDodaj(serwis);
+			if (okno.ShowDialog() == DialogResult.OK)
+			{
+				OdswiezListe();
+			}
+		}
 
-            FormZakoncz okno = new FormZakoncz(naprawy);
-            okno.ShowDialog();
+		private void btnZakonczZlecenie_Click(object sender, EventArgs e)
+		{
+			if (lstNaprawy.Items.Count > 0)
+			{
+				FormZakoncz okno = new FormZakoncz(serwis);
+				okno.ShowDialog();
+				OdswiezListe();
+			}
+		}
 
-            Zapisz();
-        }
+		private void btnSerwisanci_Click(object sender, EventArgs e)
+		{
+			FormSerwisanci okno = new FormSerwisanci(serwis);
+			okno.ShowDialog();
+		}
 
-        private void btnHistoria_Click(object sender, EventArgs e)
-        {
-            FormHistoria okno = new FormHistoria(naprawy);
-            okno.ShowDialog();
-        }
+		private void btnWykresy_Click(object sender, EventArgs e)
+		{
+			FormWykresy okno = new FormWykresy(serwis);
+			okno.ShowDialog();
+		}
 
-        private void lstNaprawy_DoubleClick(object sender, EventArgs e)
-        {
-            int index = lstNaprawy.SelectedIndex;
-            if (index > -1)
-            {
-                Naprawa n = widoczneNaprawy[index];
-                MessageBox.Show(n.PobierzSzczegoly(), "Szczeg�y");
-            }
-        }
+		private void btnHistoria_Click(object sender, EventArgs e)
+		{
+			FormHistoria okno = new FormHistoria(serwis);
+			okno.ShowDialog();
+		}
 
-        private void Zapisz()
-        {
-            OdswiezListe();
-            try
-            {
-                ObslugaDanych.Zapisz(naprawy);
-            }
-            catch { }
-        }
+		private void btnKonfiguracja_Click(object sender, EventArgs e)
+		{
+			FormKonfiguracja okno = new FormKonfiguracja(serwis);
+			okno.ShowDialog();
+		}
 
-        private void OdswiezListe()
-        {
-            lstNaprawy.Items.Clear();
-            widoczneNaprawy.Clear();
-
-            foreach (Naprawa n in naprawy)
-            {
-                if (n.CzyZakonczona == false)
-                {
-                    widoczneNaprawy.Add(n);
-                    lstNaprawy.Items.Add(n.Info());
-                }
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-    }
+		private void KlikniecieNaListe(object sender, EventArgs e)
+		{
+			if (lstNaprawy.SelectedItem != null)
+			{
+				Naprawa n = lstNaprawy.SelectedItem as Naprawa;
+				serwis.WyswietlSzczegolyNaprawy(n);
+			}
+		}
+	}
 }

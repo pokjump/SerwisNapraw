@@ -81,7 +81,6 @@
             txtSzukaj.PlaceholderText = "Wpisz model, nazwisko lub numer seryjny";
             txtSzukaj.Size = new Size(474, 23);
             txtSzukaj.TabIndex = 5;
-            txtSzukaj.TextChanged += txtSzukaj_TextChanged;
             // 
             // FormHistoria
             // 

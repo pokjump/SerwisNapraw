@@ -1,39 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
 
 namespace SerwisNapraw
 {
 	public partial class FormDodaj : Form
 	{
-		List<Naprawa> _obecne;
-		List<Serwisant> _serwisanci;
+		private ZarzadzanieSerwisem serwis;
 
-		public Naprawa NowaNaprawa { get; private set; }
-
-		public FormDodaj(List<Naprawa> n, List<Serwisant> s)
+		public FormDodaj(ZarzadzanieSerwisem z)
 		{
 			InitializeComponent();
-			_obecne = n;
-			_serwisanci = s;
-			cmbTyp.Items.Add("Komputer");
-			cmbTyp.Items.Add("Telefon");
-			cmbTyp.Items.Add("Monitor");
-			cmbTyp.Items.Add("Drukarka");
+			serwis = z;
+
+			serwis.ZlecenieDodane += (s, e) => this.DialogResult = DialogResult.OK;
+
+			cmbTyp.Items.AddRange(serwis.DajTypySprzetu());
 			cmbTyp.SelectedIndex = 0;
-			cmbTyp.SelectedIndexChanged += cmbTyp_SelectedIndexChanged;
-			btnZapisz.Click += btnZapisz_Click;
-			btnDodajCzynnosc.Click += btnDodajCzynnosc_Click;  // manulane dod. czynnosci
-			rbOsoba.CheckedChanged += ZmianaKlienta;
+
+			cmbTyp.SelectedIndexChanged += WyborTypu;
+			btnDodajCzynnosc.Click += DodajRecznaczynnosc;
 			rbFirma.CheckedChanged += ZmianaKlienta;
-			WczytajUsterki();
+			rbOsoba.CheckedChanged += ZmianaKlienta;
+			btnZapisz.Click += Zapisz;
+
+			OdswiezUsterki();
 		}
-		private void btnDodajCzynnosc_Click(object sender, EventArgs e) // manulane dod. czynnosci
+
+		private void WyborTypu(object sender, EventArgs e)
 		{
-			if (!string.IsNullOrWhiteSpace(txtRecznaCzynnosc.Text))
+			OdswiezUsterki();
+		}
+
+		private void DodajRecznaczynnosc(object sender, EventArgs e)
+		{
+			if (txtRecznaCzynnosc.Text != "")
 			{
 				clbCzynnosci.Items.Add(txtRecznaCzynnosc.Text, true);
-				txtRecznaCzynnosc.Text = "";
 			}
 		}
 
@@ -51,129 +53,34 @@ namespace SerwisNapraw
 			}
 		}
 
-		private void cmbTyp_SelectedIndexChanged(object sender, EventArgs e)
+		private void OdswiezUsterki()
 		{
-			WczytajUsterki();
-		}
-
-		private void WczytajUsterki()
-		{
-			string typ = cmbTyp.Text;
 			clbCzynnosci.Items.Clear();
-
-			Sprzet s = null;
-			if (typ == "Komputer") s = new Komputer();
-			else if (typ == "Telefon") s = new Telefon();
-			else if (typ == "Monitor") s = new Monitor();
-			else if (typ == "Drukarka") s = new Drukarka();
-
-			if (s != null)
+			foreach (var usterka in serwis.DajUsterkiDlaTypu(cmbTyp.Text))
 			{
-				foreach (string u in s.DajUsterki())
-				{
-					clbCzynnosci.Items.Add(u);
-				}
+				clbCzynnosci.Items.Add(usterka);
 			}
 		}
 
-		private void btnZapisz_Click(object sender, EventArgs e)
+		private void Zapisz(object sender, EventArgs e)
 		{
-			if (txtKlientImie.Text == "" || txtKlientNazwisko.Text == "" || txtKlientTel.Text == "")
-			{
-				MessageBox.Show("Podaj dane klienta!");
-				return;
-			}
-			string opis = "";
+			string wybrane = "";
 			foreach (var item in clbCzynnosci.CheckedItems)
 			{
-				opis = opis + item.ToString() + ", ";
-			}
-			opis = opis.TrimEnd(',', ' ');
-
-			if (txtOpis.Text != "")
-			{
-				if (opis != "") opis = opis + " | ";
-				opis = opis + "Uwagi: " + txtOpis.Text;
+				wybrane += item + ", ";
 			}
 
-			if (opis == "")
-			{
-				MessageBox.Show("Wybierz usterkę lub wpisz opis.");
-				return;
-			}
-
-			// Sszuk serw
-			string typ = cmbTyp.Text;
-			Serwisant wybrany = null;
-			int najmniejPracy = 99999;
-
-			foreach (Serwisant serw in _serwisanci)
-			{
-				if (serw.Kwalifikacje.Contains(typ))
-				{
-					int ileMa = 0;
-					foreach (Naprawa n in _obecne)
-					{
-						if (n.Wykonawca == serw && n.CzyZakonczona == false)
-						{
-							ileMa++;
-						}
-					}
-
-					if (ileMa < najmniejPracy)
-					{
-						najmniejPracy = ileMa;
-						wybrany = serw;
-					}
-				}
-			}
-
-			if (wybrany == null)
-			{
-				MessageBox.Show("Brak serwisanta.");
-				return;
-			}
-
-			// tw klient
-			Klient k = new Klient();
-			k.Telefon = txtKlientTel.Text;
-
-			if (rbFirma.Checked)
-			{
-				k.CzyFirma = true;
-				k.ImieNazwisko = txtKlientImie.Text;
-				k.Nip = txtKlientNazwisko.Text;
-			}
-			else
-			{
-				k.CzyFirma = false;
-				k.ImieNazwisko = txtKlientImie.Text + " " + txtKlientNazwisko.Text;
-				k.Nip = "";
-			}
-
-			// tw sprzet
-			Sprzet sprzet = null;
-			if (typ == "Komputer") sprzet = new Komputer();
-			else if (typ == "Telefon") sprzet = new Telefon();
-			else if (typ == "Monitor") sprzet = new Monitor();
-			else sprzet = new Drukarka();
-
-			sprzet.Model = txtModel.Text;
-			sprzet.NumerSeryjny = txtSN.Text;
-
-			// tw naprawa
-			NowaNaprawa = new Naprawa();
-			NowaNaprawa.Urzadzenie = sprzet;
-			NowaNaprawa.Wykonawca = wybrany;
-			NowaNaprawa.Wlasciciel = k;
-			NowaNaprawa.OpisUsterki = opis;
-			NowaNaprawa.Data = DateTime.Now;
-			NowaNaprawa.CzyZakonczona = false;
-			NowaNaprawa.KosztRobocizny = 0;
-			NowaNaprawa.KosztCzesci = 0;
-
-			DialogResult = DialogResult.OK;
-			Close();
+			serwis.DodajZlecenie(
+				cmbTyp.Text, 
+				txtModel.Text, 
+				txtSN.Text,
+				txtKlientImie.Text, 
+				txtKlientNazwisko.Text, 
+				txtKlientTel.Text,
+				rbFirma.Checked, 
+				wybrane, 
+				txtOpis.Text
+			);
 		}
 	}
 }

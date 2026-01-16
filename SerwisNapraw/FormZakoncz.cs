@@ -1,63 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
 
 namespace SerwisNapraw
 {
 	public partial class FormZakoncz : Form
 	{
-		List<Naprawa> _baza;
+		private ZarzadzanieSerwisem serwis;
 
-		public FormZakoncz(List<Naprawa> baza)
+		public FormZakoncz(ZarzadzanieSerwisem z)
 		{
 			InitializeComponent();
-			_baza = baza;
+			serwis = z;
 
-			btnZatwierdz.Click += btnZatwierdz_Click;
-			cmbNaprawy.SelectedIndexChanged += cmbNaprawy_SelectedIndexChanged;
+			serwis.NaprawaRozliczona += (s, e) => Close();
 
-			Zaladuj();
+			foreach (var n in serwis.PobierzAktywne())
+			{
+				cmbNaprawy.Items.Add(n);
+			}
+
+			if (cmbNaprawy.Items.Count > 0)
+			{
+				cmbNaprawy.SelectedIndex = 0;
+			}
+
+			cmbNaprawy.SelectedIndexChanged += WyborNaprawy;
+			btnZatwierdz.Click += Zatwierdz;
+			btnDodajReczne.Click += DodajReczne;
 		}
 
-		private void Zaladuj()
+		private void WyborNaprawy(object sender, EventArgs e)
 		{
-			cmbNaprawy.Items.Clear();
-			foreach (Naprawa n in _baza)
+			if (cmbNaprawy.SelectedItem != null)
 			{
-				if (n.CzyZakonczona == false)
+				Naprawa n = cmbNaprawy.SelectedItem as Naprawa;
+				lblSzczegoly.Text = n.PobierzSzczegoly();
+				
+				clbDodatkowe.Items.Clear();
+				foreach (var item in serwis.PrzygotujCzynnosciDoWeryfikacji(n))
 				{
-					cmbNaprawy.Items.Add(n);
+					clbDodatkowe.Items.Add(item.Key, item.Value);
 				}
 			}
-
-			if (cmbNaprawy.Items.Count > 0) cmbNaprawy.SelectedIndex = 0;
 		}
 
-		private void cmbNaprawy_SelectedIndexChanged(object sender, EventArgs e)
+		private void DodajReczne(object sender, EventArgs e)
 		{
-			Naprawa n = cmbNaprawy.SelectedItem as Naprawa;
-			if (n != null)
+			if (txtDodatkoweReczne.Text != "")
 			{
-				lblSzczegoly.Text = n.PobierzSzczegoly();
+				clbDodatkowe.Items.Add(txtDodatkoweReczne.Text, true);
 			}
 		}
 
-		private void btnZatwierdz_Click(object sender, EventArgs e)
+		private void Zatwierdz(object sender, EventArgs e)
 		{
 			Naprawa n = cmbNaprawy.SelectedItem as Naprawa;
-			if (n == null) return;
 
-			n.KosztRobocizny = numRobocizna.Value;
-			n.KosztCzesci = numCzesci.Value;
+			string czynnosci = "";
+			foreach (var item in clbDodatkowe.CheckedItems)
+			{
+				czynnosci += item + ", ";
+			}
 
-			if (txtUzyteCzesci.Text == "") n.UzyteCzesciOpis = "Brak";
-			else n.UzyteCzesciOpis = txtUzyteCzesci.Text;
-
-			n.CzyZakonczona = true;
-			n.DataZakonczenia = DateTime.Now;
-
-			MessageBox.Show("Rozliczono!");
-			Close();
+			serwis.RozliczNaprawe(n, numRobocizna.Value, numCzesci.Value, txtUzyteCzesci.Text, czynnosci);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
@@ -6,21 +7,23 @@ namespace SerwisNapraw
 {
 	class ObslugaDanych
 	{
-		public static void Zapisz(List<Naprawa> lista)
-		{
-			var opcje = new JsonSerializerOptions();
-			opcje.WriteIndented = true;
+		private static string SciezkaDoPliku => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "baza.json");
 
-			string tekst = JsonSerializer.Serialize(lista, opcje);
-			File.WriteAllText("baza.json", tekst);
+		public static void Zapisz(List<Naprawa> listaNapraw)
+		{
+			var opcjeSerializacji = new JsonSerializerOptions();
+			opcjeSerializacji.WriteIndented = true;
+
+			string zawartoscPliku = JsonSerializer.Serialize(listaNapraw, opcjeSerializacji);
+			File.WriteAllText(SciezkaDoPliku, zawartoscPliku);
 		}
 
 		public static List<Naprawa> Wczytaj()
 		{
-			if (File.Exists("baza.json"))
+			if (File.Exists(SciezkaDoPliku))
 			{
-				string tekst = File.ReadAllText("baza.json");
-				return JsonSerializer.Deserialize<List<Naprawa>>(tekst);
+				string zawartoscPliku = File.ReadAllText(SciezkaDoPliku);
+				return JsonSerializer.Deserialize<List<Naprawa>>(zawartoscPliku);
 			}
 			else
 			{

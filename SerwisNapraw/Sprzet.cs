@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace SerwisNapraw
 {
-	
-	[JsonDerivedType(typeof(Komputer), typeDiscriminator: "komputer")] // helper plik
-	[JsonDerivedType(typeof(Monitor), typeDiscriminator: "monitor")] // helper plik
-	[JsonDerivedType(typeof(Drukarka), typeDiscriminator: "drukarka")] // helper plik
-	[JsonDerivedType(typeof(Telefon), typeDiscriminator: "telefon")] // helper plik
-	public class Sprzet
+	[JsonDerivedType(typeof(Komputer), typeDiscriminator: "komputer")]
+	[JsonDerivedType(typeof(Monitor), typeDiscriminator: "monitor")]
+	[JsonDerivedType(typeof(Drukarka), typeDiscriminator: "drukarka")]
+	[JsonDerivedType(typeof(Telefon), typeDiscriminator: "telefon")]
+	public abstract class Sprzet
 	{
 		public string Model { get; set; }
 		public string NumerSeryjny { get; set; }
+
+		[JsonIgnore] 
+		public abstract string NazwaTypu { get; }
 
 		public virtual List<string> DajUsterki()
 		{

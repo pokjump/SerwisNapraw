@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace SerwisNapraw
 {
@@ -12,63 +12,57 @@ namespace SerwisNapraw
 		public decimal KosztCzesci { get; set; }
 		public string UzyteCzesciOpis { get; set; } = "Brak";
 
-		public decimal DajCeneRazem()
-		{
-			return KosztRobocizny + KosztCzesci;
-		}
-
 		public string OpisUsterki { get; set; }
 		public bool CzyZakonczona { get; set; } = false;
 
 		public DateTime Data { get; set; }
 		public DateTime? DataZakonczenia { get; set; } = null;
 
-		public string Info()
+		public decimal DajCeneRazem()
 		{
-			string stan = "W TOKU";
-			if (CzyZakonczona) stan = "ZAKOŃCZONA";
-
-			string k = "Brak";
-			if (Wlasciciel != null) k = Wlasciciel.ImieNazwisko;
-
-			return Data.ToShortDateString() + " | " + Urzadzenie.Model + " | " + k + " | " + stan;
+			return KosztRobocizny + KosztCzesci;
 		}
 
-		// szczegoly
-		public string PobierzSzczegoly()
-		{
-			string koniec = "---";
-			if (DataZakonczenia != null)
-			{
-				koniec = DataZakonczenia.ToString();
-			}
-
-			string s = "";
-			s = s + "KLIENT: " + Wlasciciel.ImieNazwisko + "\n";
-			s = s + "TELEFON: " + Wlasciciel.Telefon + "\n";
-
-			if (Wlasciciel.CzyFirma)
-			{
-				s = s + "NIP: " + Wlasciciel.Nip + "\n";
-			}
-
-			s = s + "SPRZĘT: " + Urzadzenie.Model + " (SN: " + Urzadzenie.NumerSeryjny + ")\n";
-			s = s + "USTERKA: " + OpisUsterki + "\n";
-			s = s + "SERWISANT: " + Wykonawca.Imie + "\n";
-			s = s + "----------------------------------\n";
-			s = s + "DATA PRZYJĘCIA: " + Data.ToString() + "\n";
-			s = s + "DATA ZAKOŃCZENIA: " + koniec + "\n";
-			s = s + "----------------------------------\n";
-			s = s + "ROZLICZENIE:\n";
-			s = s + "   Robocizna: " + KosztRobocizny + " PLN\n";
-			s = s + "   Części:    " + KosztCzesci + " PLN\n";
-			s = s + "   RAZEM:     " + DajCeneRazem() + " PLN";
-
-			return s;
-		}
 		public override string ToString()
 		{
-			return Urzadzenie.Model + " - " + Wlasciciel.ImieNazwisko;
+			string stan = CzyZakonczona ? "ZAKOŃCZONA" : "W TOKU";
+			string klient = Wlasciciel != null ? Wlasciciel.ImieNazwisko : "---";
+
+			return $"{Data.ToShortDateString()} | {Urzadzenie.Model} | {klient} | {stan}";
+		}
+
+		public string PobierzSzczegoly()
+		{
+			string dataZakonczeniaTekst = DataZakonczenia.HasValue ? DataZakonczenia.Value.ToString() : "---";
+
+			string szczegoly = "";
+			szczegoly += "KLIENT: " + (Wlasciciel != null ? Wlasciciel.ImieNazwisko : "Brak") + "\n";
+			szczegoly += "TELEFON: " + (Wlasciciel != null ? Wlasciciel.Telefon : "Brak") + "\n";
+
+			if (Wlasciciel != null && Wlasciciel.CzyFirma)
+				szczegoly += "NIP: " + Wlasciciel.Nip + "\n";
+
+			szczegoly += "SPRZĘT: " + Urzadzenie.Model + " (SN: " + Urzadzenie.NumerSeryjny + ")\n";
+			szczegoly += "USTERKA: " + OpisUsterki + "\n";
+			szczegoly += "SERWISANT: " + (Wykonawca != null ? Wykonawca.Imie : "Brak") + "\n";
+			szczegoly += "----------------------------------\n";
+			szczegoly += "DATA PRZYJĘCIA: " + Data.ToString() + "\n";
+			szczegoly += "DATA ZAKOŃCZENIA: " + dataZakonczeniaTekst + "\n";
+
+			if (CzyZakonczona)
+			{
+				szczegoly += "----------------------------------\n";
+				szczegoly += "ROZLICZENIE:\n";
+				szczegoly += "   Robocizna: " + KosztRobocizny + " PLN\n";
+				szczegoly += "   Części:    " + KosztCzesci + " PLN\n";
+				szczegoly += "   UZYTE CZĘŚCI: " + UzyteCzesciOpis + "\n";
+				szczegoly += "   RAZEM:     " + DajCeneRazem() + " PLN";
+			}
+			else
+			{
+				szczegoly += "STATUS: W trakcie naprawy";
+			}
+			return szczegoly;
 		}
 	}
 }

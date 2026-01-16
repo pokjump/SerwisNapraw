@@ -1,76 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
 
 namespace SerwisNapraw
 {
 	public partial class FormHistoria : Form
 	{
-		List<Naprawa> _wszystkie;
-		List<Naprawa> _przefiltrowane = new List<Naprawa>();
+		private ZarzadzanieSerwisem serwis;
 
-		public FormHistoria(List<Naprawa> baza)
+		public FormHistoria(ZarzadzanieSerwisem z)
 		{
 			InitializeComponent();
-			_wszystkie = baza;
+			serwis = z;
 
-			chkPokazAktywne.CheckedChanged += FiltrChanged;
-			chkPokazZakonczone.CheckedChanged += FiltrChanged;
+			chkPokazAktywne.CheckedChanged += ZmianaFiltra;
+			chkPokazZakonczone.CheckedChanged += ZmianaFiltra;
+			txtSzukaj.TextChanged += ZmianaTekstu;
+			lstHistoria.SelectedIndexChanged += WyborElementu;
 
-			// designer err
-			txtSzukaj.TextChanged += txtSzukaj_TextChanged;
-			lstHistoria.SelectedIndexChanged += lstHistoria_SelectedIndexChanged;
-
-			Odswiez();
-		}
-
-		private void FiltrChanged(object sender, EventArgs e)
-		{
-			Odswiez();
-		}
-
-		
-		private void txtSzukaj_TextChanged(object sender, EventArgs e) //designer req
-		{
 			Odswiez();
 		}
 
 		private void Odswiez()
 		{
 			lstHistoria.Items.Clear();
-			_przefiltrowane.Clear();
-
-			string fraza = txtSzukaj.Text.ToLower();
-
-			foreach (Naprawa n in _wszystkie)
+			var wyniki = serwis.PrzeszukajHistorie(chkPokazZakonczone.Checked, chkPokazAktywne.Checked, txtSzukaj.Text);
+			
+			foreach (var n in wyniki)
 			{
-				bool pokaz = false;
-
-				if (n.CzyZakonczona == true && chkPokazZakonczone.Checked) pokaz = true;
-				if (n.CzyZakonczona == false && chkPokazAktywne.Checked) pokaz = true;
-
-				if (pokaz == true && fraza != "")
-				{
-					string tekst = n.Urzadzenie.Model + " " + n.Wlasciciel.ImieNazwisko + " " + n.Urzadzenie.NumerSeryjny;
-					tekst = tekst.ToLower();
-
-					if (tekst.Contains(fraza) == false) pokaz = false;
-				}
-
-				if (pokaz)
-				{
-					_przefiltrowane.Add(n);
-					lstHistoria.Items.Add(n.Info());
-				}
+				lstHistoria.Items.Add(n);
 			}
 		}
 
-		private void lstHistoria_SelectedIndexChanged(object sender, EventArgs e)
+		private void ZmianaFiltra(object sender, EventArgs e)
 		{
-			int i = lstHistoria.SelectedIndex;
-			if (i > -1)
+			Odswiez();
+		}
+
+		private void ZmianaTekstu(object sender, EventArgs e)
+		{
+			Odswiez();
+		}
+
+		private void WyborElementu(object sender, EventArgs e)
+		{
+			if (lstHistoria.SelectedItem != null)
 			{
-				Naprawa n = _przefiltrowane[i];
+				Naprawa n = lstHistoria.SelectedItem as Naprawa;
 				lblSzczegolyHistorii.Text = n.PobierzSzczegoly();
 			}
 		}

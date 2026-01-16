@@ -278,5 +278,4 @@
 		private TextBox txtRecznaCzynnosc;
 		private Button btnDodajCzynnosc;
 	}
-
 }

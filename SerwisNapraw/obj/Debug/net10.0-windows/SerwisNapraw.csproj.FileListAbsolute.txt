@@ -17,3 +17,6 @@ C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\
 C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormZakoncz.resources
 C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormHistoria.resources
 C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormDodaj.resources
+C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormSerwisanci.resources
+C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormWykresy.resources
+C:\Users\filip\source\repos\SerwisNapraw\SerwisNapraw\obj\Debug\net10.0-windows\SerwisNapraw.FormKonfiguracja.resources
