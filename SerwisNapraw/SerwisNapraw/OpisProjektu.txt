@@ -1,0 +1,66 @@
+# Dokumentacja Projektu: Serwis Napraw
+
+## 1. Wstęp
+Program "Serwis Napraw" służy do zarządzania zleceniami serwisowymi sprzętu elektronicznego (Komputery, Telefony, Monitory, Drukarki). Umożliwia dodawanie nowych zleceń, przeglądanie historii, edycję statusu napraw, zarządzanie serwisantami oraz generowanie wykresów i statystyk.
+
+## 2. Struktura Projektu (Foldery)
+Projekt został podzielony na logiczne moduły, aby oddzielić warstwę prezentacji (okna) od logiki biznesowej i danych.
+
+### /Formularze (Interfejs Użytkownika)
+Tutaj znajdują się wszystkie okna aplikacji. Odpowiadają one wyłącznie za wyświetlanie danych i odbieranie akcji użytkownika (kliknięcia). Nie zawierają skomplikowanej logiki.
+- `Form1`: Główne okno z listą aktywnych napraw.
+- `FormDodaj`: Okno dodawania nowego zlecenia.
+- `FormZakoncz`: Okno finalizacji naprawy (koszty, części).
+- `FormHistoria`: Przeglądarka archiwalnych i aktywnych zleceń z filtrowaniem.
+- `FormKonfiguracja`: Panel administratora (dodawanie typów sprzętu, usterek, serwisantów).
+- `FormSerwisanci`: Podgląd zadań przypisanych do konkretnego serwisanta.
+- `FormWykresy`: Graficzna prezentacja statystyk.
+
+### /Kontrolery (Warstwa Pośrednia)
+Klasy te łączą Formularze z główną logiką programu. To tutaj następuje np. formatowanie tekstów dla etykiet czy walidacja prostych danych wejściowych z formularzy.
+- `KontrolerGlownegoOkna`: Obsługuje `Form1`.
+- `KontrolerDodawaniaZlecenia`: Przygotowuje dane do zapisu nowego zlecenia.
+- `KontrolerZakonczeniaZlecenia`: Przelicza koszty i przygotowuje dane do zamknięcia.
+- ...i pozostałe kontrolery odpowiadające poszczególnym oknom.
+
+### /Logika (Serce Systemu)
+Tutaj dzieje się cała "magia" programu.
+- `ZarzadzanieSerwisem.cs`: Główna klasa zarządzająca. To ona przechowuje listę napraw, wywołuje zapis do pliku, filtruje dane i zarządza zdarzeniami (Events). To "mózg" aplikacji.
+- `ObslugaDanych.cs`: Odpowiada za trwały zapis danych do pliku `baza.json` oraz ich odczyt przy starcie programu. Używa formatu JSON.
+- `KonfiguracjaSystemu.cs`: Przechowuje słowniki typów sprzętu, listę dostępnych usterek oraz serwisantów. Działa jak "baza wiedzy" o tym, co serwis naprawia.
+- `WykresPresenter.cs` / `WykresRenderer.cs`: Logika obliczania i rysowania wykresów statystycznych.
+
+### /Modele (Dane)
+Klasy reprezentujące obiekty w systemie. Są to proste kontenery na dane.
+- `Naprawa.cs`: Opisuje pojedyncze zlecenie (kto, co, kiedy, za ile).
+- `Sprzet.cs`: Klasa bazowa dla urządzeń. Dziedziczą po niej: `Komputer`, `Telefon`, `Monitor`, `Drukarka`.
+- `Klient.cs`: Dane kontaktowe klienta.
+- `Serwisant.cs`: Imię i kwalifikacje pracownika.
+
+## 3. Przepływ Danych (Jak to działa?)
+
+### Scenariusz: Dodawanie Zlecenia
+1. Użytkownik klika "Nowe Zlecenie" w `Form1`.
+2. Otwiera się `FormDodaj`.
+3. `KontrolerDodawaniaZlecenia` pobiera z `ZarzadzanieSerwisem` listę typów sprzętu i wypełnia listę rozwijaną.
+4. Użytkownik wpisuje dane i klika "Zapisz".
+5. `KontrolerDodawaniaZlecenia` przekazuje dane do metody `DodajZlecenie` w klasie `ZarzadzanieSerwisem`.
+6. `ZarzadzanieSerwisem` tworzy nowy obiekt `Naprawa` i dodaje go do listy.
+7. Następuje automatyczny zapis do pliku `baza.json` przez klasę `ObslugaDanych`.
+8. Zdarzenie `ZlecenieDodane` informuje główne okno o konieczności odświeżenia listy.
+
+### Scenariusz: Zamykanie Naprawy
+1. W `FormZakoncz` wybieramy naprawę.
+2. `KontrolerZakonczeniaZlecenia` pobiera szczegóły naprawy.
+3. Po wpisaniu kosztów i zatwierdzeniu, `ZarzadzanieSerwisem` aktualizuje status naprawy na `CzyZakonczona = true`, wpisuje datę zakończenia i zapisuje zmiany w pliku.
+
+## 4. Ważne Elementy Techniczne
+- **Polimorfizm**: Klasa `Sprzet` jest bazą, a konkretne typy (np. `Telefon`) po niej dziedziczą. Program rozpoznaje typy dynamicznie.
+- **Zdarzenia (Events)**: `ZarzadzanieSerwisem` używa zdarzeń (np. `ZglosBlad`, `ZglosKomunikat`), aby informować okna o sukcesach lub błędach bez bezpośredniej zależności od `MessageBox`.
+- **JSON**: Wszystkie dane są trwałe dzięki serializacji do pliku `baza.json`.
+
+## 5. Lokalizacja Plików
+- Główny plik uruchomieniowy: `Program.cs` (w folderze głównym).
+- Baza danych: `bin/Debug/net10.0-windows/baza.json` (generowana po pierwszym uruchomieniu/zapisie).
+
+Ten podział ułatwia rozwijanie programu, ponieważ logika nie jest wymieszana z kodem obsługi przycisków i okienek.
