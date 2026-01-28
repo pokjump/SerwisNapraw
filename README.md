@@ -54,7 +54,13 @@ Projekt został zrealizowany z naciskiem na czysty kod i podział odpowiedzialno
 > **Uwaga:** Przy pierwszym uruchomieniu aplikacja utworzy plik `baza.json` w folderze wykonywalnym. Domyślna konfiguracja (pracownicy, typy sprzętu) ładowana jest przy każdym starcie z metody `KonfiguracjaSystemu.ZaladujDomyslne()`.
 
 ## 📸 Zrzuty Ekranu
-*(Tutaj możesz dodać screenshoty aplikacji, jeśli posiadasz)*
+<img width="778" height="496" alt="image" src="https://github.com/user-attachments/assets/8c4ae5b4-02ba-4851-a964-d5939a56ebe9" />
+<img width="475" height="507" alt="image" src="https://github.com/user-attachments/assets/475fcf3d-a07d-45b8-b63d-e917747c83c9" />
+<img width="853" height="475" alt="image" src="https://github.com/user-attachments/assets/ada0fab2-dd27-4b92-b469-e18d4fea6114" />
+<img width="795" height="477" alt="image" src="https://github.com/user-attachments/assets/d65ee4b8-b361-4511-b7ef-d5f959e7093c" />
+<img width="776" height="486" alt="image" src="https://github.com/user-attachments/assets/ffeeb12f-003b-494c-891f-afeb9e87a365" />
+<img width="784" height="590" alt="image" src="https://github.com/user-attachments/assets/69ea2975-c2a7-43e6-ba95-91923542117b" />
+<img width="648" height="479" alt="image" src="https://github.com/user-attachments/assets/65b23db3-bd5b-46b9-81d9-06dc77ca64b7" />
 
 ## 📝 Autor
-[Twoje Imię / Nick]
+pokjump
