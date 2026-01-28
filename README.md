@@ -1,44 +1,60 @@
-# SerwisNapraw v2.0
+# SerwisNapraw 2.0 - System Zarządzania Serwisem Sprzętu Elektronicznego
 
-Kompleksowy system obsługi zleceń serwisowych napisany w C# (Windows Forms). Aplikacja umożliwia pełne zarządzanie procesem naprawy sprzętu elektronicznego, od przyjęcia zlecenia, przez przydział serwisanta, aż po finalizację i analizę statystyk.
+Aplikacja desktopowa (Windows Forms) napisana w języku C# służąca do kompleksowej obsługi serwisu naprawczego. System umożliwia przyjmowanie zleceń, zarządzanie pracą serwisantów, konfigurację typów sprzętu oraz analizę statystyk za pomocą autorskiego silnika wykresów.
 
-## Kluczowe Funkcjonalności
+## 🚀 Główne Funkcjonalności
 
-### 1. Zarządzanie Zleceniami
-- **Rejestracja:** Przyjmowanie zgłoszeń dla różnych typów sprzętu (domyślnie: Komputer, Telefon, Monitor, Drukarka).
-- **Klienci:** Obsługa zarówno osób prywatnych, jak i firm (walidacja NIP).
-- **Walidacja:** Rygorystyczne sprawdzanie poprawności danych wejściowych (np. format numeru telefonu, wymagane pola).
+* **Obsługa Zleceń:** Rejestracja nowych napraw z walidacją danych (NIP, telefon), podział na klientów indywidualnych i firmowych.
+* **Workflow Naprawy:** Śledzenie statusu (W toku / Zakończone), rozliczanie kosztów (części + robocizna) oraz weryfikacja wykonanych czynności.
+* **Zarządzanie Personelem:** Przypisywanie zadań do serwisantów na podstawie ich kwalifikacji.
+* **Dynamiczna Konfiguracja:** Możliwość dodawania nowych typów sprzętu (np. Konsola, Tablet) oraz definiowania dla nich typowych usterek w czasie rzeczywistym.
+* **Historia i Wyszukiwanie:** Przeszukiwanie bazy zleceń po modelu, nazwisku klienta lub numerze seryjnym.
+* **Moduł Raportowy:** Generowanie wykresów słupkowych (statystyki miesięczne) rysowanych od podstaw przy użyciu GDI+ (bez użycia gotowych kontrolek wykresów).
+* **Zapis Danych:** Automatyczna serializacja bazy napraw do pliku JSON.
 
-### 2. Konfiguracja Systemu (Nowość w v2.0)
-- **Dynamiczne typy sprzętu:** Możliwość dodawania i usuwania obsługiwanych typów urządzeń bez ingerencji w kod źródłowy.
-- **Edycja bazy wiedzy:** Zarządzanie listą typowych usterek dla każdego rodzaju sprzętu.
-- **Zarządzanie kadrami:** Dodawanie i usuwanie serwisantów oraz definiowanie ich kwalifikacji.
+## 🛠 Technologie i Architektura
 
-### 3. Statystyki i Raporty
-- **Wykresy:** Generowanie rocznych zestawień (słupkowych) prezentujących liczbę napraw, wydajność serwisantów i trendy.
-- **Eksport:** Możliwość zapisu wygenerowanych wykresów do plików PNG.
-- **Historia:** Przeglądanie i filtrowanie historii wszystkich napraw (aktywnych i zakończonych).
+Projekt został zrealizowany z naciskiem na czysty kod i podział odpowiedzialności.
 
-## Architektura i Technologia
+* **Język:** C# (.NET)
+* **Interfejs:** Windows Forms (WinForms)
+* **Dane:** System.Text.Json (baza danych w pliku `baza.json`)
+* **Grafika:** System.Drawing (GDI+) - własny silnik renderujący wykresy.
 
-Projekt został napisany z naciskiem na czystość kodu i dobre praktyki:
+### Zastosowane Wzorce Projektowe i Rozwiązania:
 
-- **Język:** C# (.NET)
-- **UI:** Windows Forms (GDI+ do rysowania wykresów)
-- **Wzorce:**
-  - **MVP (Model-View-Presenter):** Separacja logiki (`ZarzadzanieSerwisem`, `WykresPresenter`) od widoku (Formularze).
-  - **Factory:** Dynamiczne tworzenie obiektów sprzętu na podstawie konfiguracji.
-  - **Event-Driven Architecture:** Komunikacja między logiką a UI odbywa się wyłącznie poprzez zdarzenia (`event`).
-- **Dane:** Serializacja do formatu JSON (`baza.json`).
+1.  **MVC (Model-View-Controller):** Ścisła separacja logiki od interfejsu.
+    * *View:* Formularze (np. `FormDodaj`, `FormWykresy`) zajmują się tylko wyświetlaniem.
+    * *Controller:* (np. `KontrolerDodawaniaZlecenia`) pośredniczy i przygotowuje dane.
+    * *Model/Service:* `ZarzadzanieSerwisem` zawiera całą logikę biznesową i walidację.
+2.  **Fasada:** Klasa `ZarzadzanieSerwisem` jest głównym punktem dostępu do logiki aplikacji dla wszystkich kontrolerów.
+3.  **Observer (Zdarzenia):** Komunikacja między logiką a UI odbywa się poprzez `Event` i `Delegate` (np. `ZglosKomunikat`, `ZadajPytanie`), co zapobiega "zamrażaniu" interfejsu i zapewnia luźne powiązania.
+4.  **Factory Pattern (Fabryka):** Klasa `KonfiguracjaSystemu` wykorzystuje słownik delegatów `Func<Sprzet>` do dynamicznego tworzenia instancji odpowiednich klas sprzętu (Komputer, Telefon itp.) bez konieczności używania rozbudowanych instrukcji `switch`.
 
-## Struktura Plików
+## 📂 Struktura Projektu
 
-- `ZarzadzanieSerwisem.cs` - Główny kontroler logiki biznesowej i walidacji.
-- `KonfiguracjaSystemu.cs` - Moduł zarządzający dynamicznymi typami i ustawieniami (realizacja OCP).
-- `WykresRenderer.cs` - Silnik graficzny odpowiedzialny za rysowanie wykresów.
-- `Form*.cs` - Warstwa prezentacji (tylko obsługa zdarzeń, brak logiki biznesowej).
+* **Formularze (`View`):** Odpowiadają za interakcję z użytkownikiem (np. `Form1.cs`, `FormZakoncz.cs`).
+* **Kontrolery (`Controller`):** Logika sterująca konkretnymi oknami (np. `KontrolerSerwisantow.cs`).
+* **Modele (`Model`):** Klasy danych (`Naprawa.cs`, `Klient.cs`, `Serwisant.cs`).
+* **Logika Biznesowa:**
+    * `ZarzadzanieSerwisem.cs` - Mózg aplikacji.
+    * `KonfiguracjaSystemu.cs` - Zarządzanie definicjami sprzętu i pracownikami.
+    * `ObslugaDanych.cs` - Odczyt/Zapis JSON.
+* **Silnik Wykresów:**
+    * `WykresRenderer.cs` - Rysowanie osi, słupków i legendy (GDI+).
+    * `WykresPresenter.cs` - Przygotowanie danych liczbowych dla wykresu.
 
-## Wymagania
+## 🔧 Instalacja i Uruchomienie
 
-- System operacyjny Windows
-- .NET 10
+1.  Sklonuj repozytorium lub pobierz pliki.
+2.  Otwórz plik rozwiązania (`.sln`) w Visual Studio.
+3.  Upewnij się, że masz zainstalowane środowisko .NET obsługujące WinForms.
+4.  Zbuduj i uruchom projekt (F5).
+
+> **Uwaga:** Przy pierwszym uruchomieniu aplikacja utworzy plik `baza.json` w folderze wykonywalnym. Domyślna konfiguracja (pracownicy, typy sprzętu) ładowana jest przy każdym starcie z metody `KonfiguracjaSystemu.ZaladujDomyslne()`.
+
+## 📸 Zrzuty Ekranu
+*(Tutaj możesz dodać screenshoty aplikacji, jeśli posiadasz)*
+
+## 📝 Autor
+[Twoje Imię / Nick]
